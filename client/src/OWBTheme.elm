@@ -303,7 +303,9 @@ spacer : Html msg
 spacer =
     hr
         [ css
-            [ border3 (px 2) solid theme.primary
+            [ width (pct 100)
+            , boxSizing borderBox
+            , border3 (px 2) solid theme.primary
             , borderRadius (px 6)
             , backgroundColor theme.primary
             ]

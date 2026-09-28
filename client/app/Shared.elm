@@ -1,7 +1,7 @@
 module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import BackendTask exposing (BackendTask)
-import Css exposing (absolute, active, auto, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, backgroundSize, block, border3, borderBottom3, borderBox, borderLeft3, borderRadius, borderRadius4, boxShadow4, boxSizing, center, column, cursor, display, displayFlex, flexDirection, height, justifyContent, margin, marginBottom, marginRight, maxWidth, noRepeat, none, overflow, padding, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, pointer, position, px, rgb, right, scroll, solid, textDecoration, url, width)
+import Css exposing (absolute, active, auto, backgroundColor, backgroundImage, backgroundPosition, backgroundRepeat, backgroundSize, block, border3, borderBottom3, borderBox, borderLeft3, borderRadius, borderRadius4, boxShadow4, boxSizing, center, column, cursor, display, displayFlex, flexDirection, flexGrow, height, int, justifyContent, margin, marginBottom, marginRight, maxWidth, noRepeat, none, overflow, padding, paddingBottom, paddingLeft, paddingRight, paddingTop, pct, pointer, position, px, rgb, right, scroll, solid, textDecoration, url, width)
 import Effect exposing (Effect)
 import FatalError exposing (FatalError)
 import Html exposing (Html)
@@ -131,19 +131,21 @@ view sharedData page model toMsg pageView =
                             ]
                         ]
                         -- main content
-                        [ div []
-                            [ OWBTheme.title
-                                []
-                                [ text pageView.title ]
-                            , spacer
-                            , div
-                                [ css
-                                    [ overflow auto
-                                    , paddingBottom (px 6)
-                                    ]
+                        [ OWBTheme.title
+                            []
+                            [ text pageView.title ]
+                        , spacer
+                        , div
+                            [ css
+                                [ overflow auto
+                                , paddingBottom (px 6)
+                                , flexGrow (int 1)
                                 ]
-                                [ Html.Styled.fromUnstyled (Html.main_ [] pageView.body) ]
                             ]
+                            (List.map
+                                (\x -> Html.Styled.fromUnstyled x)
+                                pageView.body
+                            )
                         ]
                     , desktopNav model
                     , mobileNav model |> Html.Styled.map toMsg

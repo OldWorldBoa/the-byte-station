@@ -2,14 +2,14 @@ module Route.Blog exposing (ActionData, Data, Model, Msg, route)
 
 import BackendTask exposing (BackendTask)
 import BackendTask.Http
-import Css exposing (auto, center, margin, pct, textAlign, width)
+import Css exposing (auto, border, borderBox, borderColor, boxSizing, center, height, margin, none, pct, textAlign, transparent, width)
 import Effect exposing (Effect(..))
 import ErrorPage exposing (ErrorPage)
 import FatalError exposing (FatalError)
 import Head
 import Head.Seo as Seo
-import Html.Styled exposing (br, div, h1, text)
-import Html.Styled.Attributes exposing (css, href, target)
+import Html.Styled exposing (br, div, h1, iframe, text)
+import Html.Styled.Attributes exposing (css, href, src, srcdoc, target)
 import Json.Decode as D exposing (Decoder, andThen, succeed)
 import OWBTheme
 import Pages.Url
@@ -152,23 +152,7 @@ view app _ model =
     { title = "The Byte Station Blog"
     , body =
         [ Html.Styled.toUnstyled
-            (div []
-                (List.append
-                    [ div [ css [ margin auto, width (pct 100), textAlign center ] ]
-                        [ h1 [] [ text "Welcome!" ]
-                        , text "Please, "
-                        , OWBTheme.link
-                            [ href "https://mygeekwisdom.com/2011/09/12/be-excellent-to-each-other/"
-                            , target "_blank"
-                            ]
-                            [ text "be excellent to each other." ]
-                        , br [] []
-                        , br [] []
-                        ]
-                    ]
-                    (getPostsHtml model app.data.posts)
-                )
-            )
+            (iframe [ css [ boxSizing borderBox, width (pct 100), height (pct 100), borderColor transparent ], src "https://the-byte-station.leaflet.pub/" ] [])
         ]
     }
 
